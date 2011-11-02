@@ -47,6 +47,12 @@ module CarrierWave
         add_config :fog_host
         add_config :fog_public
         add_config :fog_authenticated_url_expiration
+        
+        # upyun
+        add_config :upyun_storage_username
+        add_config :upyun_storage_userpass
+        add_config :upyun_storage_bucket
+        add_config :upyun_host
 
         # Mounting
         add_config :ignore_integrity_errors
@@ -128,7 +134,8 @@ module CarrierWave
               :s3 => "CarrierWave::Storage::S3",
               :grid_fs => "CarrierWave::Storage::GridFS",
               :right_s3 => "CarrierWave::Storage::RightS3",
-              :cloud_files => "CarrierWave::Storage::CloudFiles"
+              :cloud_files => "CarrierWave::Storage::CloudFiles", 
+              :upyun => "CarrierWave::Storage::UpYun"
             }
             config.storage = :file
             config.s3_headers = {}
