@@ -10,25 +10,13 @@ module CarrierWave
   module Storage
 
     ##
-    # Uploads things to Rackspace Cloud Files webservices using the Rackspace libraries (cloudfiles gem).
-    # In order for CarrierWave to connect to Cloud Files, you'll need to specify an username, api key
-    # and container.  Optional arguments are config.cloud_files_snet (using the private internal 
-    # Rackspace network for communication) and config.cloud_files_auth_url (for connecting to Rackspace's 
-    # UK infrastructure or an OpenStack Swift installation)
     #
     #     CarrierWave.configure do |config|
-    #       config.cloud_files_username = "xxxxxx"
-    #       config.cloud_files_api_key = "xxxxxx"
-    #       config.cloud_files_container = "my_container"
-    #       config.cloud_files_auth_url = "https://lon.auth.api.rackspacecloud.com/v1.0"
-    #       config.cloud_files_snet = true
+    #       config.upyun_storage_username = "xxxxxx"
+    #       config.upyun_storage_userpass = "xxxxxx"
+    #       config.upyun_storage_bucket = "my_bucket"
+    #       config.upyun_bucket_domain = "https://my_bucket.files.example.com"
     #     end
-    #
-    # You can optionally include your CDN host name in the configuration.
-    # This is *highly* recommended, as without it every request requires a lookup
-    # of this information.
-    #
-    #   config.cloud_files_cdn_host = "c000000.cdn.rackspacecloud.com"
     #
     #
     class UpYun < Abstract
@@ -117,8 +105,8 @@ module CarrierWave
         # [String] file's url
         #
         def url
-          if @uploader.upyun_host
-            "http://" + @uploader.upyun_host + '/' + @path
+          if @uploader.upyun_bucket_domain
+            "http://" + @uploader.upyun_bucket_domain + '/' + @path
           else
             nil
           end
